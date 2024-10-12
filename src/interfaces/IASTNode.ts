@@ -9,6 +9,10 @@ export interface IASTNode {
    */
   text(): string;
 
+  /**
+   * allows the visitor to traverse the nodes of an AST
+   * @param visitor the visitor that is doing the traversing
+   */
   accept(visitor: IASTVisitor): void;
 }
 

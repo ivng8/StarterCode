@@ -6,6 +6,9 @@ import { MissingDeclarationError } from "./errors/MissingDeclarationError";
 import { IASTNode, IASTVisitor } from "./interfaces";
 import { ITypeErrors } from "./interfaces/ITypeErrors";
 
+/**
+ * class representing a visitor that catches all the errors made in an AST
+ */
 export class TypeCheckVisitor implements IASTVisitor {
     private errors: Array<ITypeErrors> = [];
     private declarations: string[] = [];
@@ -69,6 +72,10 @@ export class TypeCheckVisitor implements IASTVisitor {
         }
     }
 
+    /**
+     * method that returns a list of all the errors accumulated from traversing an AST
+     * @returns a list of all the errors
+     */
     public getTypeErrors(): Array<ITypeErrors> {
         return this.errors;
     }
