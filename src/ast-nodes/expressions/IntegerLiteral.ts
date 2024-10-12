@@ -6,7 +6,9 @@ import { IASTVisitor, ILiteralExpression } from '../../interfaces';
 export class IntegerLiteral implements ILiteralExpression {
   public constructor(private value: number) {}
   
-  public accept(visitor: IASTVisitor): void {}
+  public accept(visitor: IASTVisitor): void {
+    visitor.visit(this);
+  }
 
   public text(): string {
     return this.value.toString();
