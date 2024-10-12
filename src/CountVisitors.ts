@@ -3,7 +3,7 @@ import { IASTVisitor } from "./interfaces/IASTVisitor.js"
 
 export class CountVisitor implements IASTVisitor {
     private varMap = new Map<String, number>();
-    
+
     public visit(node: IASTNode): void {
         let nodeText : String[] = node.text().split(" ");
         let variable : String = nodeText[nodeText.length - 1];

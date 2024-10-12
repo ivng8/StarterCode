@@ -20,8 +20,8 @@ describe('TypeCheckVisitor Tests', (): void => {
         const seq: IStatement = new SequenceStmt([declx, decly]);
         const typeVisitor: TypeCheckVisitor = new TypeCheckVisitor();
         seq.accept(typeVisitor);
-        expect(typeVisitor.getErrors().length).toEqual(1);
-        expect(typeVisitor.getErrors()[0].getMessage()).toEqual("Duplicate declaration of variable: x");
+        expect(typeVisitor.getTypeErrors().length).toEqual(1);
+        expect(typeVisitor.getTypeErrors()[0].getMessage()).toEqual("Duplicate declaration of variable: x");
         });
 
     it('missing declaration error', (): void => {
@@ -31,8 +31,8 @@ describe('TypeCheckVisitor Tests', (): void => {
         const seq: IStatement = new SequenceStmt([assign1toz]);
         const typeVisitor: TypeCheckVisitor = new TypeCheckVisitor();
         seq.accept(typeVisitor);
-        expect(typeVisitor.getErrors().length).toEqual(1);
-        expect(typeVisitor.getErrors()[0].getMessage()).toEqual("Missing declaration for variable: z");
+        expect(typeVisitor.getTypeErrors().length).toEqual(1);
+        expect(typeVisitor.getTypeErrors()[0].getMessage()).toEqual("Missing declaration for variable: z");
         });
 
     it('bad operand in greater than right side', (): void => {
@@ -43,8 +43,8 @@ describe('TypeCheckVisitor Tests', (): void => {
         const seq: IStatement = new SequenceStmt([declz, compare1toz]);
         const typeVisitor: TypeCheckVisitor = new TypeCheckVisitor();
         seq.accept(typeVisitor);
-        expect(typeVisitor.getErrors().length).toEqual(1);
-        expect(typeVisitor.getErrors()[0].getMessage()).toEqual("Bad operand in comparison expression: z > true");
+        expect(typeVisitor.getTypeErrors().length).toEqual(1);
+        expect(typeVisitor.getTypeErrors()[0].getMessage()).toEqual("Bad operand in comparison expression: z > true");
         });
 
     it('bad operand in greater than left side', (): void => {
@@ -55,8 +55,8 @@ describe('TypeCheckVisitor Tests', (): void => {
         const seq: IStatement = new SequenceStmt([declz, compare1toz]);
         const typeVisitor: TypeCheckVisitor = new TypeCheckVisitor();
         seq.accept(typeVisitor);
-        expect(typeVisitor.getErrors().length).toEqual(1);
-        expect(typeVisitor.getErrors()[0].getMessage()).toEqual("Bad operand in comparison expression: false > z");
+        expect(typeVisitor.getTypeErrors().length).toEqual(1);
+        expect(typeVisitor.getTypeErrors()[0].getMessage()).toEqual("Bad operand in comparison expression: false > z");
         });
 
     it('bad operand in add right side', (): void => {
@@ -67,8 +67,8 @@ describe('TypeCheckVisitor Tests', (): void => {
         const seq: IStatement = new SequenceStmt([declz, add1toz]);
         const typeVisitor: TypeCheckVisitor = new TypeCheckVisitor();
         seq.accept(typeVisitor);
-        expect(typeVisitor.getErrors().length).toEqual(1);
-        expect(typeVisitor.getErrors()[0].getMessage()).toEqual("Bad operand in add expression: z + true");
+        expect(typeVisitor.getTypeErrors().length).toEqual(1);
+        expect(typeVisitor.getTypeErrors()[0].getMessage()).toEqual("Bad operand in add expression: z + true");
         });
 
     it('bad operand in greater than left side', (): void => {
@@ -79,8 +79,8 @@ describe('TypeCheckVisitor Tests', (): void => {
         const seq: IStatement = new SequenceStmt([declz, add1toz]);
         const typeVisitor: TypeCheckVisitor = new TypeCheckVisitor();
         seq.accept(typeVisitor);
-        expect(typeVisitor.getErrors().length).toEqual(1);
-        expect(typeVisitor.getErrors()[0].getMessage()).toEqual("Bad operand in add expression: false + z");
+        expect(typeVisitor.getTypeErrors().length).toEqual(1);
+        expect(typeVisitor.getTypeErrors()[0].getMessage()).toEqual("Bad operand in add expression: false + z");
         });
 
     it('nested boolean in condition clause', (): void => {
@@ -95,8 +95,8 @@ describe('TypeCheckVisitor Tests', (): void => {
         const seq: IStatement = new SequenceStmt([declx, declz, ifstmt]);
         const typeVisitor: TypeCheckVisitor = new TypeCheckVisitor();
         seq.accept(typeVisitor);
-        expect(typeVisitor.getErrors().length).toEqual(1);
-        expect(typeVisitor.getErrors()[0].getMessage()).toEqual("Bad condition in if statement: z > 1 > x");
+        expect(typeVisitor.getTypeErrors().length).toEqual(1);
+        expect(typeVisitor.getTypeErrors()[0].getMessage()).toEqual("Bad condition in if statement: z > 1 > x");
         });
 
     it('no boolean in condition clause', (): void => {
@@ -108,8 +108,8 @@ describe('TypeCheckVisitor Tests', (): void => {
         const seq: IStatement = new SequenceStmt([declx, ifstmt]);
         const typeVisitor: TypeCheckVisitor = new TypeCheckVisitor();
         seq.accept(typeVisitor);
-        expect(typeVisitor.getErrors().length).toEqual(1);
-        expect(typeVisitor.getErrors()[0].getMessage()).toEqual("Bad condition in if statement: x = 1");
+        expect(typeVisitor.getTypeErrors().length).toEqual(1);
+        expect(typeVisitor.getTypeErrors()[0].getMessage()).toEqual("Bad condition in if statement: x = 1");
         });
     
     it('multiple repeated errors at once', (): void => {
@@ -133,12 +133,12 @@ describe('TypeCheckVisitor Tests', (): void => {
             assign2toy,  ifstmt]);
         const typeVisitor: TypeCheckVisitor = new TypeCheckVisitor();
         seq.accept(typeVisitor);
-        expect(typeVisitor.getErrors().length).toEqual(6);
-        expect(typeVisitor.getErrors()[0].getMessage()).toEqual("Duplicate declaration of variable: y");
-        expect(typeVisitor.getErrors()[1].getMessage()).toEqual("Missing declaration for variable: x");
-        expect(typeVisitor.getErrors()[2].getMessage()).toEqual("Bad condition in if statement: z > true > y");
-        expect(typeVisitor.getErrors()[3].getMessage()).toEqual("Bad operand in comparison expression: true > y");
-        expect(typeVisitor.getErrors()[4].getMessage()).toEqual("Missing declaration for variable: x");
-        expect(typeVisitor.getErrors()[5].getMessage()).toEqual("Bad operand in add expression: y + true");
+        expect(typeVisitor.getTypeErrors().length).toEqual(6);
+        expect(typeVisitor.getTypeErrors()[0].getMessage()).toEqual("Duplicate declaration of variable: y");
+        expect(typeVisitor.getTypeErrors()[1].getMessage()).toEqual("Missing declaration for variable: x");
+        expect(typeVisitor.getTypeErrors()[2].getMessage()).toEqual("Bad condition in if statement: z > true > y");
+        expect(typeVisitor.getTypeErrors()[3].getMessage()).toEqual("Bad operand in comparison expression: true > y");
+        expect(typeVisitor.getTypeErrors()[4].getMessage()).toEqual("Missing declaration for variable: x");
+        expect(typeVisitor.getTypeErrors()[5].getMessage()).toEqual("Bad operand in add expression: y + true");
         });
 })

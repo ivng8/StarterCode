@@ -69,7 +69,7 @@ export class TypeCheckVisitor implements IASTVisitor {
         }
     }
 
-    public getErrors(): Array<ITypeErrors> {
+    public getTypeErrors(): Array<ITypeErrors> {
         return this.errors;
     }
 }
