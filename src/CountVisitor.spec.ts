@@ -10,7 +10,7 @@ import {
     BooleanLiteral,
     IfStmt
   } from './ast-nodes';
-import { CountVisitor } from "./CountVisitors";
+import { CountVisitor } from "./CountVisitor";
 import { IStatement, ILiteralExpression, IExpression } from "./interfaces";
 
 describe('CountVisitor Tests', (): void => {

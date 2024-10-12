@@ -8,6 +8,6 @@ export class DuplicateDeclarationError implements ITypeErrors {
     }
     
     public getMessage(): string {
-        return "Duplicate declaration of variable: " + this.varName;
+        return "Duplicate declaration for variable: " + this.varName;
     }
 }

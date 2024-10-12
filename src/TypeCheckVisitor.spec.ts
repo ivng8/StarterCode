@@ -9,7 +9,7 @@ import {
     BooleanLiteral,
     IfStmt
   } from './ast-nodes';
-import { CountVisitor } from './CountVisitors';
+import { CountVisitor } from './CountVisitor';
 import { IStatement, IExpression, ILiteralExpression } from './interfaces';
 import { TypeCheckVisitor } from './TypeCheckVisitor';
 
@@ -21,7 +21,7 @@ describe('TypeCheckVisitor Tests', (): void => {
         const typeVisitor: TypeCheckVisitor = new TypeCheckVisitor();
         seq.accept(typeVisitor);
         expect(typeVisitor.getTypeErrors().length).toEqual(1);
-        expect(typeVisitor.getTypeErrors()[0].getMessage()).toEqual("Duplicate declaration of variable: x");
+        expect(typeVisitor.getTypeErrors()[0].getMessage()).toEqual("Duplicate declaration for variable: x");
         });
 
     it('missing declaration error', (): void => {
@@ -134,7 +134,7 @@ describe('TypeCheckVisitor Tests', (): void => {
         const typeVisitor: TypeCheckVisitor = new TypeCheckVisitor();
         seq.accept(typeVisitor);
         expect(typeVisitor.getTypeErrors().length).toEqual(6);
-        expect(typeVisitor.getTypeErrors()[0].getMessage()).toEqual("Duplicate declaration of variable: y");
+        expect(typeVisitor.getTypeErrors()[0].getMessage()).toEqual("Duplicate declaration for variable: y");
         expect(typeVisitor.getTypeErrors()[1].getMessage()).toEqual("Missing declaration for variable: x");
         expect(typeVisitor.getTypeErrors()[2].getMessage()).toEqual("Bad condition in if statement: z > true > y");
         expect(typeVisitor.getTypeErrors()[3].getMessage()).toEqual("Bad operand in comparison expression: true > y");
