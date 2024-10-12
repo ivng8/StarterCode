@@ -18,6 +18,6 @@ export class CountVisitor implements IASTVisitor {
     }
     
     public getCount(variable: String): number {
-        return this.varMap.get(variable)!;
+        return this.varMap.get(variable) ?? 0;
     }
 }
