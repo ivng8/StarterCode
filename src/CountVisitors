@@ -1,5 +1,0 @@
-import { IASTVisitor } from "./interfaces/IASTVisitor";
-
-export class CountVisitor implements IASTVisitor {
-    
-}

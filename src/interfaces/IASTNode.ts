@@ -1,4 +1,4 @@
-import { IASTVisitor } from './IASTVisitor';
+import { IASTVisitor } from './IASTVisitor'
 
 /**
  * Root of the AST Node hierarchy.
@@ -9,6 +9,6 @@ export interface IASTNode {
    */
   text(): string;
 
-  accept(visitor: IASTVisitor): IASTNode;
+  accept(visitor: IASTVisitor): void;
 }
 

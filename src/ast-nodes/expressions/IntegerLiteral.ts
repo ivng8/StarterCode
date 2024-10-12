@@ -1,10 +1,12 @@
-import { ILiteralExpression } from '../../interfaces';
+import { IASTVisitor, ILiteralExpression } from '../../interfaces';
 
 /**
  * ASTNode representing an integer literal
  */
 export class IntegerLiteral implements ILiteralExpression {
   public constructor(private value: number) {}
+  
+  public accept(visitor: IASTVisitor): void {}
 
   public text(): string {
     return this.value.toString();

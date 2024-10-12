@@ -1,4 +1,4 @@
-import { IStatement } from '../../interfaces';
+import { IASTVisitor, IStatement } from '../../interfaces';
 
 /**
  * ASTNode representing a variable declaration
@@ -6,6 +6,10 @@ import { IStatement } from '../../interfaces';
 export class DeclarationStmt implements IStatement {
 
   public constructor(private varName: string) {}
+  
+  public accept(visitor: IASTVisitor): void {
+    visitor.visit(this);
+  }
 
   public text(): string {
     return `let ${this.varName}`;

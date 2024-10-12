@@ -1,6 +1,0 @@
-import { IASTNode } from './IASTNode'
-
-export interface IASTVisitor {
-
-    visitNode(node: IASTNode): void;
-}
