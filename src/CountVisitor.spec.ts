@@ -1,3 +1,4 @@
+import { count } from 'console';
 import {
     AssignmentStmt,
     ReferenceExpression,
@@ -97,6 +98,40 @@ describe('CountVisitor Tests', (): void => {
         const countVisitor: CountVisitor = new CountVisitor();
         seq.accept(countVisitor);
         expect(countVisitor.getCount('z')).toEqual(0);
+        });
+
+    it('nested sequences', (): void => {
+        const declz: IStatement = new DeclarationStmt('z');
+        const declx: IStatement = new DeclarationStmt('x');
+        const x: ReferenceExpression = new ReferenceExpression('x');
+        const z: ReferenceExpression = new ReferenceExpression('z');
+        const one: ILiteralExpression = new IntegerLiteral(1);
+        const two: ILiteralExpression = new IntegerLiteral(2);
+        const assign1tox: IStatement = new AssignmentStmt(x, one);
+        const assign2toz: IStatement = new AssignmentStmt(z, two);
+        const seq2: IStatement = new SequenceStmt([assign1tox])
+        const seq: IStatement = new SequenceStmt([declx, declz, assign2toz, seq2]);
+        const countVisitor: CountVisitor = new CountVisitor();
+        seq.accept(countVisitor);
+        expect(countVisitor.getCount('x')).toEqual(1);
+        expect(countVisitor.getCount('z')).toEqual(1);
+        });
+
+    it('nested if statements', (): void => {
+        const declz: IStatement = new DeclarationStmt('z');
+        const declx: IStatement = new DeclarationStmt('x');
+        const x: ReferenceExpression = new ReferenceExpression('x');
+        const z: ReferenceExpression = new ReferenceExpression('z');
+        const assignztox: IStatement = new AssignmentStmt(x, z);
+        const comparison: IExpression = new GreaterThanExpression(z, x);
+        const ifstmt2: IStatement = new IfStmt(comparison, assignztox, assignztox);
+        const ifstmt1: IStatement = new IfStmt(comparison, ifstmt2, assignztox)
+        const ifstmt: IStatement = new IfStmt(comparison, ifstmt1, assignztox);
+        const seq: IStatement = new SequenceStmt([declx, declz, ifstmt]);
+        const countVisitor: CountVisitor = new CountVisitor();
+        seq.accept(countVisitor);
+        expect(countVisitor.getCount('x')).toEqual(7);
+        expect(countVisitor.getCount('z')).toEqual(7);
         });
 
     it('count references in large AST', (): void => {

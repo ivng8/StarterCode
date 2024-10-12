@@ -8,8 +8,8 @@ export class GreaterThanExpression implements IExpression {
   
   public accept(visitor: IASTVisitor): void {
     visitor.visit(this);
-    this.left.accept(visitor);
-    this.right.accept(visitor);
+    this.getLeft().accept(visitor);
+    this.getRight().accept(visitor);
   }
 
   public text(): string {
